@@ -1,0 +1,123 @@
+name: "Feature Request"
+description: "Suggest a new feature or improvement for MultiStudio."
+title: "[Feature]: "
+labels:
+  - enhancement
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve MultiStudio!
+
+        We welcome ideas for new features, usability improvements,
+        and enhancements to existing functionality.
+
+        Before submitting:
+        - Search existing issues for similar suggestions.
+        - Describe the problem your idea would solve.
+        - Explain how the proposed feature should work.
+        - Do not include passwords, stream keys, or access tokens.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Feature Category"
+      description: "Which part of MultiStudio would this feature improve?"
+      options:
+        - "Streaming"
+        - "Multistreaming"
+        - "Recording"
+        - "Scenes"
+        - "Sources"
+        - "Audio Mixer"
+        - "Video Preview"
+        - "Encoders"
+        - "User Interface (Qt/QML)"
+        - "Settings"
+        - "Benchmark"
+        - "Statistics"
+        - "Plugins"
+        - "Translations"
+        - "Accessibility"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem or Motivation"
+      description: "What problem would this feature solve?"
+      placeholder: |
+        Describe the current limitation or difficulty.
+
+        Example:
+        I want to stream to multiple platforms without
+        configuring each destination manually.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe how you would like the feature to work."
+      placeholder: |
+        Explain the proposed behavior and user experience.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternative Solutions"
+      description: "Have you considered other ways to solve this problem?"
+      placeholder: "Describe any alternatives or workarounds..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: importance
+    attributes:
+      label: "Importance"
+      description: "How useful would this feature be to you?"
+      options:
+        - "Essential"
+        - "Very useful"
+        - "Nice to have"
+        - "Minor improvement"
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: "Examples or Mockups"
+      description: "Attach screenshots, sketches, or examples if available."
+      placeholder: "Add images, links, or examples here..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional Context"
+      description: "Anything else that would help explain your idea?"
+      placeholder: "Additional information..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched for similar feature requests."
+          required: true
+
+        - label: "I have clearly described the proposed feature."
+          required: true
+
+        - label: "I understand that submitting a request does not guarantee implementation."
+          required: true
