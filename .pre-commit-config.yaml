@@ -1,0 +1,53 @@
+
+# MultiStudio pre-commit configuration
+
+repos:
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  # CMake formatting
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.13
+    hooks:
+      - id: cmake-format
+        args: [--check]
+        files: (^|/)CMakeLists\.txt$|\.cmake$
+
+  # C++ formatting
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args: [--style=file]
+        files: \.(cpp|cc|cxx|h|hpp)$
+
+  # Local project checks
+  - repo: local
+    hooks:
+      # QML syntax and lint checks
+      - id: qmllint
+        name: Qt QML Lint
+        entry: D:/Qt/6.12.0/mingw_64/bin/qmllint.exe
+        language: system
+        types: [file]
+        files: \.qml$
+        pass_filenames: true
+
+      # Git whitespace validation
+      - id: git-diff-check
+        name: Git diff whitespace check
+        entry: git diff --cached --check
+        language: system
+        pass_filenames: false
+        always_run: true
