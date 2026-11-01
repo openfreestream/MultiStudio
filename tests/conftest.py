@@ -1,4 +1,3 @@
-
 """Shared pytest configuration for MultiStudio tests."""
 import os
 import shutil
