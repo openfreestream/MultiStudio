@@ -2,7 +2,7 @@ Contributing to MultiStudio
 
 Thank you for your interest in contributing to MultiStudio!
 
-MultiStudio is an open-source desktop application focused on live streaming, multistreaming, media management, and an accessible streaming workflow.
+MultiStudio is an open-source desktop application focused on live streaming, multistreaming, media management, and a user-friendly streaming workflow.
 
 We welcome contributions from developers, designers, testers, translators, technical writers, and community members.
 
@@ -13,9 +13,9 @@ Whether you are fixing a bug, improving the user interface, adding tests, or upd
 Before contributing, please:
 
 - Read our "Code of Conduct" (CODE_OF_CONDUCT.md).
-- Review the "Security Policy" (SECURITY.md).
+- Review our "Security Policy" (SECURITY.md).
 - Search existing GitHub issues and pull requests.
-- Open an issue to discuss substantial new features or architectural changes.
+- Discuss substantial features or architectural changes before implementation.
 - Keep contributions focused and reasonably sized.
 - Never commit passwords, API tokens, stream keys, or other sensitive information.
 
@@ -27,7 +27,7 @@ MultiStudio uses the following technologies:
 
 Technology| Purpose
 C++20| Application logic and backend
-Qt 6.12| Cross-platform application framework
+Qt 6.12| Application framework
 Qt Quick / QML| Desktop user interface
 Qt Quick Controls| Reusable UI controls
 CMake| Build configuration
@@ -63,100 +63,28 @@ Recommended development tools:
 - Qt QML language support
 - Qt Linguist
 
-The project currently uses Qt 6.12.0 with MinGW 13.1 in its local Windows development configuration.
+The local Windows development configuration currently uses Qt 6.12.0 and MinGW 13.1.
 
-FFmpeg development libraries are optional for initial UI development. Features requiring the streaming backend will not be available without the necessary media libraries.
+FFmpeg development libraries are optional for initial UI development. Features requiring media processing will need the appropriate backend dependencies.
 
-4. Repository Structure
+4. Getting the Source Code
 
-The repository is organized as follows:
-
-MultiStudio/
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   ├── workflows/
-│   └── PULL_REQUEST_TEMPLATE.md
-├── apps/
-│   └── desktop/
-│       ├── src/
-│       ├── qml/
-│       │   ├── components/
-│       │   ├── panels/
-│       │   └── theme/
-│       └── assets/
-│           └── icons/
-├── benchmark/
-├── tests/
-├── tools/
-│   └── scripts/
-├── translations/
-├── CMakeLists.txt
-├── CMakePresets.json
-├── README.md
-├── SECURITY.md
-├── CODE_OF_CONDUCT.md
-└── CONTRIBUTING.md
-
-Directory Responsibilities
-
-"apps/desktop/src/"
-
-Contains the C++ application entry point and desktop-specific backend code.
-
-"apps/desktop/qml/"
-
-Contains the Qt Quick user interface.
-
-"apps/desktop/qml/components/"
-
-Contains reusable QML components, including navigation and sidebar elements.
-
-"apps/desktop/qml/panels/"
-
-Contains application panels such as preview, scenes, sources, audio controls, and application information.
-
-"apps/desktop/qml/theme/"
-
-Contains shared visual design properties, including colors, spacing, and corner radii.
-
-"apps/desktop/assets/icons/"
-
-Contains SVG icons used by the application.
-
-"benchmark/"
-
-Contains standalone performance benchmarks.
-
-"tests/"
-
-Contains automated tests, including Python tests using pytest.
-
-"tools/scripts/"
-
-Contains development and maintenance scripts.
-
-"translations/"
-
-Contains Qt Linguist translation files.
-
-5. Getting the Source Code
-
-Clone the repository using its official GitHub URL:
+Clone the official repository:
 
 git clone <repository-url>
 cd <repository-directory>
 
-Replace the placeholders with the actual repository URL and directory.
+Replace the placeholders with the actual repository URL and directory name.
 
-If you are contributing through a fork, fork the repository on GitHub first and clone your fork.
+If you are contributing through a fork, fork the repository on GitHub before cloning your copy.
 
-6. Building on Windows
+5. Building on Windows
 
-The following commands assume that Qt, CMake, Ninja, and MinGW have been installed and that the required tools are available to CMake.
+Ensure Qt, CMake, Ninja, and MinGW are installed and correctly configured.
 
 Configure
 
-From the project root:
+Run the following command from the project root:
 
 cmake --preset windows-mingw-debug
 
@@ -168,7 +96,7 @@ Run
 
 .\build\mingw-debug\MultiStudio.exe
 
-The executable may require Qt runtime libraries and plugins to be available through the development environment or a properly deployed application directory.
+The application may require Qt runtime libraries and plugins to be available through the development environment or a properly deployed application directory.
 
 Clean Build
 
@@ -180,18 +108,18 @@ Then configure and build the project again.
 
 Do not commit generated build files.
 
-7. C++ Coding Guidelines
+6. C++ Coding Guidelines
 
 MultiStudio uses C++20.
 
 Contributors should follow these guidelines:
 
 - Use four spaces for indentation.
-- Prefer clear, descriptive names.
+- Prefer clear and descriptive names.
 - Keep functions focused on a single responsibility.
 - Prefer RAII and automatic resource management.
 - Avoid unnecessary raw owning pointers.
-- Use Qt ownership conventions appropriately for QObject-based classes.
+- Follow Qt ownership conventions for QObject-based classes.
 - Validate inputs and handle errors explicitly.
 - Avoid unnecessary global state.
 - Do not block the UI thread with expensive operations.
@@ -210,7 +138,7 @@ QString formatSceneName(const QString &name)
 
 Follow the surrounding code's established conventions when editing existing files.
 
-8. QML Coding Guidelines
+7. QML Coding Guidelines
 
 MultiStudio uses Qt 6.12 and Qt Quick.
 
@@ -230,11 +158,9 @@ Component Organization
 
 Keep "Main.qml" focused on the main application window and navigation.
 
-Place reusable UI elements in "components/".
+Place reusable interface elements in QML components.
 
-Place larger application sections in "panels/".
-
-Avoid placing the entire application interface in one large QML file.
+Keep application panels separate rather than placing the entire interface in one large file.
 
 Theme
 
@@ -253,9 +179,9 @@ Layouts
 
 Prefer "RowLayout", "ColumnLayout", and other Qt Quick Layouts for responsive interfaces.
 
-Use "Layout.*" properties for items managed by a layout.
+Use "Layout.*" properties for items managed by layouts.
 
-Do not use anchors and layout geometry properties to control the same item's position or size.
+Do not combine anchors and layout geometry properties to control the same item's position or size.
 
 Translations
 
@@ -269,11 +195,11 @@ UI and Backend Separation
 
 QML should primarily handle presentation and user interaction.
 
-Use C++ for persistent application state, media processing, streaming operations, and other substantial backend functionality.
+Use C++ for persistent application state, media processing, streaming operations, and substantial backend functionality.
 
 Simple temporary QML models are acceptable during prototyping.
 
-Production data models should be implemented in the appropriate backend layer when persistence or shared state is required.
+Production data models should use the appropriate backend layer when persistence or shared state is required.
 
 QML Linting
 
@@ -285,11 +211,9 @@ Address new warnings where practical.
 
 Do not suppress diagnostics without understanding their cause.
 
-9. Python Testing Guidelines
+8. Python Testing Guidelines
 
 MultiStudio uses Python and pytest for automated testing.
-
-Tests are located in "tests/".
 
 Install Dependencies
 
@@ -298,19 +222,6 @@ python -m pip install -r tests/requirements.txt
 Run Tests
 
 python -m pytest tests/ -v
-
-Test Organization
-
-Use descriptive filenames beginning with "test_".
-
-Examples:
-
-- "test_build.py"
-- "test_qml.py"
-- "test_translations.py"
-- "test_resources.py"
-
-Place shared pytest fixtures in "tests/conftest.py".
 
 Writing Tests
 
@@ -324,25 +235,15 @@ Tests should:
 - Provide meaningful assertion messages.
 - Cover relevant error conditions.
 
+Use descriptive test names and place shared pytest fixtures in "tests/conftest.py".
+
 New functionality should include appropriate tests where feasible.
 
-10. Translation Contributions
+9. Translation Contributions
 
-MultiStudio uses Qt Linguist.
+MultiStudio uses Qt Linguist for application translations.
 
-Translation files are located in:
-
-translations/
-
-Example:
-
-multistudio_cs.ts
-multistudio_de.ts
-multistudio_es.ts
-multistudio_fr.ts
-multistudio_pl.ts
-
-These ".ts" files use the Qt Linguist XML format and are not TypeScript files.
+Translation files use the ".ts" extension and the Qt Linguist XML format. They are not TypeScript files.
 
 Translation Guidelines
 
@@ -358,13 +259,9 @@ New user-visible strings should be marked with "qsTr()".
 
 Translation files can be compiled into ".qm" files as part of the configured Qt translation build process.
 
-11. Icons and Assets
+10. Icons and Assets
 
 MultiStudio uses SVG icons, including icons from the Lucide icon set.
-
-Icons are stored in:
-
-apps/desktop/assets/icons/
 
 Guidelines:
 
@@ -377,7 +274,7 @@ Guidelines:
 
 Do not add copyrighted assets without appropriate permission or licensing.
 
-12. Reporting Bugs
+11. Reporting Bugs
 
 Before reporting a bug:
 
@@ -393,7 +290,7 @@ Include reproduction steps, expected behavior, actual behavior, and relevant env
 
 Do not report security vulnerabilities publicly.
 
-13. Suggesting Features
+12. Suggesting Features
 
 We welcome ideas for improving MultiStudio.
 
@@ -409,7 +306,7 @@ A useful feature request should explain:
 
 For large changes, discuss the proposal before beginning implementation.
 
-14. Creating a Branch
+13. Creating a Branch
 
 Create a separate branch for your work.
 
@@ -427,7 +324,7 @@ git switch -c feature/scene-management
 
 Keep unrelated changes in separate branches and pull requests.
 
-15. Commit Messages
+14. Commit Messages
 
 Use clear, descriptive commit messages.
 
@@ -456,7 +353,7 @@ Suggested types include:
 
 This convention is recommended rather than strictly enforced.
 
-16. Submitting a Pull Request
+15. Submitting a Pull Request
 
 Before submitting a pull request:
 
@@ -483,7 +380,7 @@ Pull Request Checklist
 
 Maintainers may request revisions before merging.
 
-17. Continuous Integration
+16. Continuous Integration
 
 MultiStudio uses GitHub Actions for automated project checks.
 
@@ -498,7 +395,7 @@ Contributors should review CI results and resolve relevant failures before reque
 
 CI coverage may expand as the project develops.
 
-18. Security Guidelines
+17. Security Guidelines
 
 Streaming applications may handle sensitive credentials, including stream keys and authentication tokens.
 
@@ -515,7 +412,7 @@ Contributors must:
 
 Report vulnerabilities privately according to "SECURITY.md" (SECURITY.md).
 
-19. Documentation Contributions
+18. Documentation Contributions
 
 Documentation improvements are welcome.
 
@@ -530,7 +427,7 @@ When editing documentation:
 
 Examples and screenshots should accurately represent MultiStudio.
 
-20. Review Process
+19. Review Process
 
 Pull requests may be reviewed for:
 
@@ -548,7 +445,7 @@ Not every contribution will be merged.
 
 Maintainers may request changes, postpone a feature, or decline a proposal based on project priorities and technical considerations.
 
-21. Community Standards
+20. Community Standards
 
 All contributors must follow the "Code of Conduct" (CODE_OF_CONDUCT.md).
 
@@ -556,7 +453,7 @@ We encourage respectful technical discussions, constructive feedback, and collab
 
 Disagreements should focus on code, design, and evidence rather than individuals.
 
-22. Getting Help
+21. Getting Help
 
 If you need assistance:
 
@@ -568,7 +465,7 @@ If you need assistance:
 
 Please provide relevant technical details when requesting help.
 
-23. Thank You
+22. Thank You
 
 Every contribution helps improve MultiStudio.
 
