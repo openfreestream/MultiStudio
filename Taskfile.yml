@@ -1,0 +1,97 @@
+
+version: '3'
+
+# MultiStudio task runner
+# https://taskfile.dev
+
+vars:
+  PROJECT_NAME: MultiStudio
+  CMAKE_PRESET: windows-mingw-debug
+  BUILD_DIR: build/mingw-debug
+
+  QT_DIR: D:/Qt/6.12.0/mingw_64
+  MINGW_DIR: D:/Qt/Tools/mingw1310_64
+  NINJA_DIR: D:/Qt/Tools/Ninja
+
+  APP_PATH: '{{.BUILD_DIR}}/MultiStudio.exe'
+
+env:
+  PATH: '{{.QT_DIR}}/bin;{{.MINGW_DIR}}/bin;{{.NINJA_DIR}};{{.PATH}}'
+
+tasks:
+
+  # Default
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  # Configure
+  configure:
+    desc: Configure MultiStudio using CMake
+    cmds:
+      - cmake --preset {{.CMAKE_PRESET}}
+
+  # Build
+  build:
+    desc: Build MultiStudio
+    deps:
+      - configure
+    cmds:
+      - cmake --build --preset {{.CMAKE_PRESET}}
+
+  # Run
+  run:
+    desc: Run MultiStudio
+    deps:
+      - build
+    cmds:
+      - '{{.APP_PATH}}'
+
+  # Debug
+  debug:
+    desc: Run MultiStudio with Qt diagnostics
+    deps:
+      - build
+    env:
+      QT_DEBUG_PLUGINS: '1'
+      QML_IMPORT_TRACE: '1'
+    cmds:
+      - '{{.APP_PATH}}'
+
+  # Clean
+  clean:
+    desc: Clean compiled build files
+    cmds:
+      - cmake --build {{.BUILD_DIR}} --target clean
+
+  # Rebuild
+  rebuild:
+    desc: Clean and rebuild MultiStudio
+    cmds:
+      - task: clean
+      - task: build
+
+  # QML lint
+  lint-qml:
+    desc: Check QML files using qmllint
+    cmds:
+      - '"{{.QT_DIR}}/bin/qmllint.exe" -I "{{.QT_DIR}}/qml" apps/desktop/qml/Main.qml'
+      - '"{{.QT_DIR}}/bin/qmllint.exe" -I "{{.QT_DIR}}/qml" apps/desktop/qml/components/Sidebar.qml'
+
+  # Tests
+  test:
+    desc: Run CTest tests
+    deps:
+      - build
+    cmds:
+      - ctest --test-dir {{.BUILD_DIR}} --output-on-failure
+
+  # Project information
+  info:
+    desc: Show MultiStudio configuration
+    cmds:
+      - echo "Project {{.PROJECT_NAME}}"
+      - echo "Preset {{.CMAKE_PRESET}}"
+      - echo "Build directory {{.BUILD_DIR}}"
+      - echo "Qt {{.QT_DIR}}"
