@@ -1,4 +1,3 @@
-
 ---
 name: multistudio
 description: Develop, debug, review, and maintain the MultiStudio C++20 and Qt 6 application while preserving its existing architecture, coding conventions, and project configuration.
