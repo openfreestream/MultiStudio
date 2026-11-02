@@ -10,8 +10,8 @@ Rectangle {
     property string applicationName: "MultiStudio"
     property string applicationVersion: "0.1.0"
     property string applicationDescription: qsTr("Open-source multistreaming studio")
-    property string repositoryUrl: ""
-    property string licenseName: qsTr("Not specified")
+    property string repositoryUrl: "https://github.com/openfreestream/MultiStudio"
+    property string licenseName: qsTr("GPL-3.0")
 
     color: AppTheme.Theme.background
 
