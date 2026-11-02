@@ -1,0 +1,12 @@
+# JS
+node_modules/
+dist/
+
+# Other
+.freebuff/
+build/
+
+# IDE
+.vscode/
+.idea/
+
