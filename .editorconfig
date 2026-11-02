@@ -1,0 +1,66 @@
+
+# MultiStudio EditorConfig
+# https://editorconfig.org
+
+root = true
+
+# Default configuration
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# C++ source files
+[*.{cpp,cc,cxx,h,hpp,hxx}]
+indent_style = space
+indent_size = 4
+
+# CMake files
+[{CMakeLists.txt,*.cmake}]
+indent_style = space
+indent_size = 4
+
+# Qt QML files
+[*.qml]
+indent_style = space
+indent_size = 4
+
+# JavaScript files
+[*.{js,mjs,cjs}]
+indent_style = space
+indent_size = 4
+
+# JSON configuration
+[*.{json,jsonc}]
+indent_style = space
+indent_size = 4
+
+# YAML configuration
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+
+# Shell scripts
+[*.{sh,bash}]
+indent_style = space
+indent_size = 4
+
+# PowerShell scripts
+[*.ps1]
+indent_style = space
+indent_size = 4
+
+# Windows batch scripts
+[*.{bat,cmd}]
+end_of_line = crlf
+
+# Makefiles
+[Makefile]
+indent_style = tab
