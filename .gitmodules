@@ -1,0 +1,36 @@
+[submodule "packages/third-party/fmt"]
+	path = packages/third-party/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "packages/third-party/spdlog"]
+	path = packages/third-party/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "packages/third-party/json"]
+	path = packages/third-party/json
+	url = https://github.com/nlohmann/json.git
+[submodule "packages/third-party/ffmpeg"]
+	path = packages/third-party/ffmpeg
+	url = https://github.com/FFmpeg/FFmpeg.git
+[submodule "packages/third-party/googletest"]
+	path = packages/third-party/googletest
+	url = https://github.com/google/googletest.git
+[submodule "packages/third-party/libdatachannel"]
+	path = packages/third-party/libdatachannel
+	url = https://github.com/paullouisageneau/libdatachannel.git
+[submodule "packages/third-party/opus"]
+	path = packages/third-party/opus
+	url = https://github.com/xiph/opus.git
+[submodule "packages/third-party/libsamplerate"]
+	path = packages/third-party/libsamplerate
+	url = https://github.com/libsndfile/libsamplerate.git
+[submodule "packages/third-party/miniaudio"]
+	path = packages/third-party/miniaudio
+	url = https://github.com/mackron/miniaudio.git
+[submodule "packages/third-party/imgui"]
+	path = packages/third-party/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "packages/third-party/crashpad"]
+	path = packages/third-party/crashpad
+	url = https://github.com/chromium/crashpad.git
+[submodule "packages/third-party/libsodium"]
+	path = packages/third-party/libsodium
+	url = https://github.com/jedisct1/libsodium.git
