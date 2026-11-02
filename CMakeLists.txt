@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.24)
 
 project(MultiStudio
@@ -25,6 +26,7 @@ find_package(Qt6 6.12 REQUIRED COMPONENTS
     Gui
     Quick
     QuickControls2
+    LinguistTools
     Multimedia
     Network
 )
@@ -71,6 +73,9 @@ set(MULTISTUDIO_QML_FILES
     apps/desktop/qml/components/Sidebar.qml
     apps/desktop/qml/components/NavigationButton.qml
     apps/desktop/qml/panels/PreviewPanel.qml
+    apps/desktop/qml/panels/AboutPanel.qml
+    apps/desktop/qml/panels/ScenesPanel.qml
+    apps/desktop/qml/panels/SourcesPanel.qml
 )
 
 foreach(qml_file IN LISTS MULTISTUDIO_QML_FILES)
@@ -128,7 +133,7 @@ set(MULTISTUDIO_ICON_NAMES
 
 foreach(icon IN LISTS MULTISTUDIO_ICON_NAMES)
     set(icon_file
-        "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons/${icon}.svg"
+        "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons/sidebar/${icon}.svg"
     )
 
     if(NOT EXISTS "${icon_file}")
@@ -139,10 +144,51 @@ foreach(icon IN LISTS MULTISTUDIO_ICON_NAMES)
 
     qt_add_resources(MultiStudio "lucide_${icon}"
         PREFIX "/qt/qml/MultiStudio/icons"
-        BASE "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons"
+        BASE "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons/sidebar"
         FILES "${icon_file}"
     )
 endforeach()
+
+set(MULTISTUDIO_ABOUT_ICON_NAMES
+    code-xml
+    cpu
+    film
+    github
+    info
+    layers
+    scale
+    tag
+    wrench
+)
+
+foreach(icon IN LISTS MULTISTUDIO_ABOUT_ICON_NAMES)
+    set(icon_file
+        "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons/about/${icon}.svg"
+    )
+
+    if(NOT EXISTS "${icon_file}")
+        message(FATAL_ERROR
+            "Missing about icon: ${icon_file}"
+        )
+    endif()
+
+    qt_add_resources(MultiStudio "about_${icon}"
+        PREFIX "/qt/qml/MultiStudio/icons/about"
+        BASE "${CMAKE_CURRENT_SOURCE_DIR}/apps/desktop/assets/icons/about"
+        FILES "${icon_file}"
+    )
+endforeach()
+
+# Translations
+set(MULTISTUDIO_TRANSLATION_FILES
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/lang_cs.ts"
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/lang_de.ts"
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/lang_es.ts"
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/lang_fr.ts"
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/lang_pl.ts"
+)
+
+add_subdirectory(translations)
 
 # Qt libraries
 target_link_libraries(MultiStudio PRIVATE
